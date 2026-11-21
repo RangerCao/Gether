@@ -1,0 +1,220 @@
+{
+  "task": "BV1gehE6DEJ8",
+  "description": "基于 BV1gehE6DEJ8 v2 证据的人工查询集；relevant_phrases 任一命中即视为相关",
+  "queries": [
+    {
+      "query": "为什么从重庆离职来杭州",
+      "relevant_phrases": [
+        "从重庆那家离职",
+        "重庆那家离职"
+      ]
+    },
+    {
+      "query": "杭州的房租为什么贵",
+      "relevant_phrases": [
+        "房租都比较高",
+        "房租"
+      ]
+    },
+    {
+      "query": "隔断房是什么样子",
+      "relevant_phrases": [
+        "隔断房",
+        "四个房间"
+      ]
+    },
+    {
+      "query": "临安租的房子离公司近吗",
+      "relevant_phrases": [
+        "临安",
+        "小区门口"
+      ]
+    },
+    {
+      "query": "重庆和杭州的居住体验对比",
+      "relevant_phrases": [
+        "整租",
+        "自己空间"
+      ]
+    },
+    {
+      "query": "上一段实习主要做了什么",
+      "relevant_phrases": [
+        "护林员",
+        "摄像头算法",
+        "智能体"
+      ]
+    },
+    {
+      "query": "上一段实习有什么缺陷",
+      "relevant_phrases": [
+        "没有真正去接触",
+        "没有上线",
+        "没有用户"
+      ]
+    },
+    {
+      "query": "摄像头报警项目怎么工作",
+      "relevant_phrases": [
+        "着火了",
+        "报警",
+        "运维人员"
+      ]
+    },
+    {
+      "query": "多租户隔离和向量库",
+      "relevant_phrases": [
+        "多租户",
+        "向量"
+      ]
+    },
+    {
+      "query": "为什么面试容易被问穿",
+      "relevant_phrases": [
+        "问穿",
+        "没有真实"
+      ]
+    },
+    {
+      "query": "对RAG评估集的看法",
+      "relevant_phrases": [
+        "RAG",
+        "测试集"
+      ]
+    },
+    {
+      "query": "投简历的面试邀约比例",
+      "relevant_phrases": [
+        "20比一",
+        "沟通20份"
+      ]
+    },
+    {
+      "query": "投第一周的感受",
+      "relevant_phrases": [
+        "第一周",
+        "没有人要我"
+      ]
+    },
+    {
+      "query": "小厂和有人带的重要性",
+      "relevant_phrases": [
+        "零到二十",
+        "带你"
+      ]
+    },
+    {
+      "query": "为什么想去有真实用户的产品",
+      "relevant_phrases": [
+        "真实用户",
+        "上线"
+      ]
+    },
+    {
+      "query": "简历上包装了哪些东西",
+      "relevant_phrases": [
+        "模型训练",
+        "记忆插件",
+        "简历"
+      ]
+    },
+    {
+      "query": "实习了多久以及时间线",
+      "relevant_phrases": [
+        "两个半月",
+        "9月22"
+      ]
+    },
+    {
+      "query": "第二段实习入职第二天",
+      "relevant_phrases": [
+        "第二段实习",
+        "入职第二天"
+      ]
+    },
+    {
+      "query": "杭州住的房子有什么缺点",
+      "relevant_phrases": [
+        "压抑",
+        "房子小了",
+        "隔断"
+      ]
+    },
+    {
+      "query": "在重庆租房的感觉怎么样",
+      "relevant_phrases": [
+        "整租",
+        "自己空间"
+      ]
+    },
+    {
+      "query": "上一家公司做的是什么行业",
+      "relevant_phrases": [
+        "燃气"
+      ]
+    },
+    {
+      "query": "面试官会问项目遇到过什么问题",
+      "relevant_phrases": [
+        "遇到一些问题",
+        "面试官"
+      ]
+    },
+    {
+      "query": "为什么玩具RAG项目没有说服力",
+      "relevant_phrases": [
+        "玩具项目",
+        "自建测试集"
+      ]
+    },
+    {
+      "query": "投简历应该选什么样的产品",
+      "relevant_phrases": [
+        "真实用户",
+        "上线"
+      ]
+    },
+    {
+      "query": "杭州租房和通勤怎么权衡",
+      "relevant_phrases": [
+        "离公司非常近",
+        "房租"
+      ]
+    },
+    {
+      "query": "投简历时大厂和小厂怎么选",
+      "relevant_phrases": [
+        "大一点的厂",
+        "零到二十"
+      ]
+    },
+    {
+      "query": "怎么判断项目有没有真实用户",
+      "relevant_phrases": [
+        "真实用户",
+        "上线"
+      ]
+    },
+    {
+      "query": "简历上的项目为什么经不起追问",
+      "relevant_phrases": [
+        "问穿",
+        "简历"
+      ]
+    },
+    {
+      "query": "面试官一般会追问什么",
+      "relevant_phrases": [
+        "面试官",
+        "遇到一些问题"
+      ]
+    },
+    {
+      "query": "杭州和重庆生活成本对比",
+      "relevant_phrases": [
+        "房租",
+        "整租"
+      ]
+    }
+  ]
+}

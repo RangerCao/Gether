@@ -1,0 +1,14 @@
+{
+  "size": 10000,
+  "queries": 40,
+  "top_k": 10,
+  "index_seconds": 47.9,
+  "p50_ms": 192.48,
+  "p95_ms": 296.38,
+  "p99_ms": 310.74,
+  "avg_ms": 210.01,
+  "max_ms": 315.61,
+  "avg_hits": 5.35,
+  "embedding": "BAAI/bge-small-zh-v1.5",
+  "chunk_vectors": "random normalized (latency-only)"
+}

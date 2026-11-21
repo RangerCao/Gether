@@ -1,0 +1,16 @@
+{
+  "candidate_k": 20,
+  "rrf_k": 20,
+  "weights": "vector_only",
+  "vector_weight": 1.0,
+  "bm25_weight": 0.0,
+  "hit_rate": 1.0,
+  "recall@10": 0.9802,
+  "mrr": 0.8353,
+  "ndcg@10": 0.8341,
+  "chunk_config": "large",
+  "chunk_target": 500,
+  "chunk_max": 700,
+  "chunk_overlap": 100,
+  "chunk_count": 13
+}
