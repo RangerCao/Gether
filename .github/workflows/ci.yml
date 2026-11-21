@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  executor:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/executor
+    env:
+      LLM_PROVIDER: mock
+      APP_ENV: local
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check app tests
+      - name: Test
+        run: pytest -q
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+
+  governor:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/governor
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Test
+        run: mvn -q -B test

@@ -1,0 +1,98 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: gether-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-gether}
+      POSTGRES_USER: ${POSTGRES_USER:-gether}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gether_local_pwd}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gether} -d ${POSTGRES_DB:-gether}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  minio:
+    image: minio/minio:latest
+    container_name: gether-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-gether}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-gether_local_pwd}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: gether-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  executor:
+    profiles: ["app"]
+    build:
+      context: ../services/executor
+      dockerfile: Dockerfile
+      args:
+        PIP_EXTRAS: ${PIP_EXTRAS:-}
+    container_name: gether-executor
+    env_file: ../.env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      MINIO_ENDPOINT: http://minio:9000
+      REDIS_URL: redis://redis:6379/0
+      GOVERNOR_BASE_URL: http://governor:8080
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/app/data
+      - ../secrets:/app/secrets:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
+  governor:
+    profiles: ["app"]
+    build:
+      context: ../services/governor
+      dockerfile: Dockerfile
+    container_name: gether-governor
+    env_file: ../.env
+    environment:
+      EXECUTOR_BASE_URL: http://executor:8000
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-gether}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-gether}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-gether_local_pwd}
+      CALLBACK_HMAC_SECRET: ${CALLBACK_HMAC_SECRET:-change_me}
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      executor:
+        condition: service_started
+
+volumes:
+  pgdata:
+  miniodata:
