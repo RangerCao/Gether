@@ -1,0 +1,53 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: gether-governor
+  mvc:
+    async:
+      request-timeout: 1800000
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:55432/gether}
+    username: ${SPRING_DATASOURCE_USERNAME:gether}
+    password: ${SPRING_DATASOURCE_PASSWORD:gether_local_pwd}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+gether:
+  executor:
+    base-url: ${EXECUTOR_BASE_URL:http://localhost:8000}
+    connect-timeout-ms: ${EXECUTOR_CONNECT_TIMEOUT_MS:3000}
+    read-timeout-ms: ${EXECUTOR_READ_TIMEOUT_MS:600000}
+  sse:
+    heartbeat-seconds: ${SSE_HEARTBEAT_SECONDS:15}
+    replay-buffer-size: ${SSE_REPLAY_BUFFER_SIZE:200}
+  callback:
+    hmac-secret: ${CALLBACK_HMAC_SECRET:change_me}
+    max-skew-seconds: ${CALLBACK_MAX_SKEW_SECONDS:300}
+  auth:
+    jwt-secret: ${JWT_SECRET:change_me}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      executor:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 2
+  retry:
+    instances:
+      executor:
+        max-attempts: 2
+        wait-duration: 1s
