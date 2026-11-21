@@ -1,0 +1,386 @@
+[
+  {
+    "id": "broad_01",
+    "category": "tech",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_02",
+    "category": "tech",
+    "base_p": 0.6,
+    "base_n": 0.4468535299918563,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_03",
+    "category": "tech",
+    "base_p": 0.8,
+    "base_n": 0.8687949224876582,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_04",
+    "category": "tech",
+    "base_p": 0.4,
+    "base_n": 0.7653606369886217,
+    "llm_p": 0.6,
+    "llm_n": 0.9674679834891693
+  },
+  {
+    "id": "broad_05",
+    "category": "tech",
+    "base_p": 0.6,
+    "base_n": 0.5147714448836774,
+    "llm_p": 0.8,
+    "llm_n": 0.8539316501572937
+  },
+  {
+    "id": "broad_06",
+    "category": "tech",
+    "base_p": 0.6,
+    "base_n": 0.7328286204777911,
+    "llm_p": 0.6,
+    "llm_n": 0.7328286204777911
+  },
+  {
+    "id": "broad_07",
+    "category": "product",
+    "base_p": 0.6,
+    "base_n": 0.7227265726449519,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_08",
+    "category": "product",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_09",
+    "category": "product",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_10",
+    "category": "product",
+    "base_p": 0.6,
+    "base_n": 0.6843515475204855,
+    "llm_p": 0.8,
+    "llm_n": 0.8539316501572937
+  },
+  {
+    "id": "broad_11",
+    "category": "product",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_12",
+    "category": "product",
+    "base_p": 0.6,
+    "base_n": 0.6548086577531307,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_13",
+    "category": "health",
+    "base_p": 0.6,
+    "base_n": 0.639945385422766,
+    "llm_p": 0.8,
+    "llm_n": 0.8687949224876582
+  },
+  {
+    "id": "broad_14",
+    "category": "health",
+    "base_p": 0.6,
+    "base_n": 0.5147714448836774,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_15",
+    "category": "health",
+    "base_p": 0.2,
+    "base_n": 0.20210734650054757,
+    "llm_p": 0.6,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_16",
+    "category": "health",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_17",
+    "category": "health",
+    "base_p": 0.8,
+    "base_n": 0.7860137352654724,
+    "llm_p": 0.6,
+    "llm_n": 0.639945385422766
+  },
+  {
+    "id": "broad_18",
+    "category": "health",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_19",
+    "category": "finance",
+    "base_p": 0.6,
+    "base_n": 0.639945385422766,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_20",
+    "category": "finance",
+    "base_p": 0.4,
+    "base_n": 0.38356636737133565,
+    "llm_p": 0.8,
+    "llm_n": 0.8539316501572937
+  },
+  {
+    "id": "broad_21",
+    "category": "finance",
+    "base_p": 0.8,
+    "base_n": 0.8687949224876582,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_22",
+    "category": "finance",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_23",
+    "category": "finance",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_24",
+    "category": "finance",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_25",
+    "category": "policy",
+    "base_p": 0.8,
+    "base_n": 0.6608397947263839,
+    "llm_p": 0.8,
+    "llm_n": 0.8687949224876582
+  },
+  {
+    "id": "broad_26",
+    "category": "policy",
+    "base_p": 0.8,
+    "base_n": 0.6608397947263839,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_27",
+    "category": "policy",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_28",
+    "category": "policy",
+    "base_p": 0.0,
+    "base_n": 0.0,
+    "llm_p": 0.0,
+    "llm_n": 0.0
+  },
+  {
+    "id": "broad_29",
+    "category": "policy",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_30",
+    "category": "policy",
+    "base_p": 0.4,
+    "base_n": 0.7653606369886217,
+    "llm_p": 0.6,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_31",
+    "category": "lifestyle",
+    "base_p": 0.4,
+    "base_n": 0.5413996682199069,
+    "llm_p": 0.8,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_32",
+    "category": "lifestyle",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_33",
+    "category": "lifestyle",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_34",
+    "category": "lifestyle",
+    "base_p": 0.8,
+    "base_n": 0.7860137352654724,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_35",
+    "category": "lifestyle",
+    "base_p": 0.8,
+    "base_n": 0.8539316501572937,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_36",
+    "category": "lifestyle",
+    "base_p": 0.4,
+    "base_n": 0.5087403079104241,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_37",
+    "category": "career",
+    "base_p": 0.4,
+    "base_n": 0.49818925746641285,
+    "llm_p": 0.4,
+    "llm_n": 0.7653606369886217
+  },
+  {
+    "id": "broad_38",
+    "category": "career",
+    "base_p": 0.8,
+    "base_n": 0.8687949224876582,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_39",
+    "category": "career",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_40",
+    "category": "career",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_41",
+    "category": "career",
+    "base_p": 0.2,
+    "base_n": 0.18154179253735267,
+    "llm_p": 0.6,
+    "llm_n": 0.9674679834891693
+  },
+  {
+    "id": "broad_42",
+    "category": "career",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_43",
+    "category": "science",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_44",
+    "category": "science",
+    "base_p": 0.6,
+    "base_n": 0.4468535299918563,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_45",
+    "category": "science",
+    "base_p": 0.8,
+    "base_n": 0.830419897363192,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_46",
+    "category": "science",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_47",
+    "category": "science",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  },
+  {
+    "id": "broad_48",
+    "category": "science",
+    "base_p": 1.0,
+    "base_n": 1.0,
+    "llm_p": 1.0,
+    "llm_n": 1.0
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "notes": "固定 holdout：不参与 LTR 训练，只用于最终对照",
+  "ids": ["broad_04", "broad_11", "broad_17", "broad_22", "broad_28", "broad_45"]
+}

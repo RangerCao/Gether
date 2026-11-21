@@ -1,0 +1,1013 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "broad_01",
+      "question": "2026 年 AI 编程工具真的能提升开发效率吗？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV1UaYK6nEjP",
+          "title": "【cursor】2026年最新版免费永久使用cursor使用教程，程序员编程必备，史上最强AI编程工具(附安装包)",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1kcxw66EcM",
+          "title": "所有 AI IDE 都是它换皮！2026 年了，VSCode 还值得学吗？全球数据翻个底朝天",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_02",
+      "question": "RISC-V 在未来五年会取代 ARM 吗？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV1ughi6cExE",
+          "title": "ARM 架构能干翻 X64 吗？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1ee4j6MENZ",
+          "title": "摩尔线程：纳指大跌之后，浅谈国产GPU的未来展望",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_03",
+      "question": "端侧大模型的实际体验和瓶颈有哪些？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV1KNYg6xEZE",
+          "title": "DeepSeek V4.1 Flash 首发实测，吊打自家 Pro 模型？！梁圣回归",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1aZpw6DEMg",
+          "title": "手把手教你构建大模型评测集：从维度设计到自动化落地",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_04",
+      "question": "开源大模型和闭源大模型的真实差距还有多大？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV15uHD6REpG",
+          "title": "本地模型哪家强？实测5款开源端侧模型...",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1x9pA6VEKs",
+          "title": "我们训练开源了一个AI算命八字命理大模型",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_05",
+      "question": "AI Agent 在真实生产环境中的落地效果如何？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV12pxX6tEpk",
+          "title": "前微软工程师亲述：1200个AI智能体失控，竟联手攻破HuggingFace | Dave's Garage",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1FY436eEAo",
+          "title": "AI Agent自动执行任务，不只是设置定时！一个被低估的功能",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_06",
+      "question": "云原生数据库真的比传统数据库更省钱吗？",
+      "category": "tech",
+      "candidates": [
+        {
+          "source_video_id": "BV1Adno69EHQ",
+          "title": "7种数据库类型深度解析：何时选择特定数据库",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1d341117kX",
+          "title": "【云数据库】15分钟学会如何配置和使用MySQL云数据库",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_07",
+      "question": "2026 年最值得买的国产旗舰手机有哪些？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1EbW36xEHq",
+          "title": "差500块怎么选？荣耀Magic9 vs vivo X500小屏旗舰实测对比！",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1ooxL6zEaf",
+          "title": "双十一手机推荐：内存涨价潮下，一加Turbo 6更香了",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_08",
+      "question": "折叠屏手机用久了折痕和可靠性怎么样？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1AwYB6wEKa",
+          "title": "小米18fold的一个问题，不知道别的折叠屏手机是不是也有这个问题呢",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1ZMDbBTEV8",
+          "title": "用了一年的vivo xfold3 pro，是否还能再战？续航和折痕我只说真话……",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_09",
+      "question": "扫地机器人到底是不是智商税？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1xJsd6PEZp",
+          "title": "追觅MOVA Z60 Pro扫地机器人优缺点分享，MOVAZ60Pro怎么样，值得入手吗？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1qcty6tEXo",
+          "title": "超真实测评！MOVAP70Pro扫拖一体机器人是不是智商税？值得买吗？买前必看这一篇 MOVA扫地机器人 MOVAP70Pro MOVA滚筒活洗新纪",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_10",
+      "question": "新能源车的电池衰减真实情况如何？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1Z84y1B7mG",
+          "title": "小米11系列电池衰减至“正常”，损耗大于20%可免费换新电池？",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1FC411h7WB",
+          "title": "新能源车亏电没法启动，买搭电宝自己动手搭电，省了一笔救援费",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_11",
+      "question": "机械键盘和薄膜键盘长期使用体验差距在哪？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1uiVu62EoS",
+          "title": "【游戏键盘推荐】机械键盘和磁轴键盘怎么选？｜磁轴推荐设置&入坑选择",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1paNszKEEy",
+          "title": "在FPS游戏中，磁轴键盘跟机械键盘差距大吗？",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_12",
+      "question": "NAS 对普通家庭来说到底值不值得买？",
+      "category": "product",
+      "candidates": [
+        {
+          "source_video_id": "BV1r7no6SEJg",
+          "title": "NAS 自建私有推送服务",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1eCL3z2E6z",
+          "title": "为什么要用NAS而不是网盘和移动硬盘永久备份数据？",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_13",
+      "question": "每天喝咖啡对健康到底是有益还是有害？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV1pu411x7m8",
+          "title": "【医学博士】熬夜后这四个迹象！说明你的身体已经到极限了！I 连续熬夜一年，这是身体的变化",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1ydHk6HEU6",
+          "title": "医学博士就对吗：茶与咖啡别多喝，会缺铁缺钙？",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_14",
+      "question": "间歇性断食有可靠的长期减重证据吗？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV1mbp46mE81",
+          "title": "冯杰森博士正在重新审视关于断食的一切",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV15KxE6GEm8",
+          "title": "168断食为什么没效果？医师拆解间歇性断食失败的3大误区",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_15",
+      "question": "久坐人群每天走多少步才有明显健康收益？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV15J411p76K",
+          "title": "【SPSS/AMOS毕业实战教程】共同方法偏差/共同方法变异",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1fFWM6mE5A",
+          "title": "虽然有点辛苦，但这种方法燃烧脂肪的速度是每天走10公里步数的4倍呢！ - Jeremy Ethier",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_16",
+      "question": "睡眠不足对认知能力的影响有多严重？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV1WfnL66EtE",
+          "title": "学习时总是困怎么办？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1Ya4t6uE8g",
+          "title": "凌晨2点睡、10点起，睡够8小时，算熬夜吗？｜麻省理工 88 个学生的手环数据",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_17",
+      "question": "益生菌对肠道健康的研究结论一致吗？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV18jH9e7EJL",
+          "title": "益生菌大测评！真噗噗？智商税？实验室揭秘！",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1dCTZ6CEJA",
+          "title": "益生菌不能乱补，不要轻易交智商税",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_18",
+      "question": "力量训练和有氧运动哪个对延寿更重要？",
+      "category": "health",
+      "candidates": [
+        {
+          "source_video_id": "BV1ai8q6MEaM",
+          "title": "充电宝到底为什么鼓包？满电、0电还是半电存放？到底怎么才能延长寿命呢——",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1bzW86hE4J",
+          "title": "四肢瘦了，但还有小肚子？坚持力量训练，但还是没有肌肉线条？一条解决关于减脂期力量训练效果不理想的问题",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_19",
+      "question": "2026 年普通人应该怎样配置家庭资产？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1YBxy6LEuc",
+          "title": "2026年最后一期储蓄国债，普通人要买吗？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1h2JX6nExc",
+          "title": "6分钟讲透《高性价比人生指南》：普通人如何少踩90%的坑",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_20",
+      "question": "指数基金定投真的能长期跑赢主动基金吗？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1L4WT63EdQ",
+          "title": "投资指数基金，数量越多越好吗",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1Nq7nz8EtC",
+          "title": "【金字塔定投法】收益最高的基金定投策略，基金股票投资必看！《下蛋公基系列课》",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_21",
+      "question": "黄金在当前通胀环境下还值得配置吗？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1xsW76pEq2",
+          "title": "王总黄金： 观点不变！依旧看涨！ 3700-4000的黄金值得长期持有！",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1VBxZ6XE4c",
+          "title": "抄底黄金，我赚了2w~刀！！",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_22",
+      "question": "年轻人提前还房贷到底划不划算？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1oyYR6iERq",
+          "title": "房贷该不该提前还？真正该算的是：还多少最划算？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1aDGw6FERb",
+          "title": "房贷还完要拿结清证明",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_23",
+      "question": "存款利率下行后普通人的现金应该放在哪里？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1AQgp6AEDp",
+          "title": "R2理财一个月亏8%：你把固收+当存款，银行把你当韭菜",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV18qnC6bEYh",
+          "title": "央行利率换锚：政策利率从7天期转向隔夜逆回购，利率走廊、LPR定价、非银流动性工具同步调整，这次改革意味着什么",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_24",
+      "question": "AI 泡沫如果破裂会怎样影响科技股？",
+      "category": "finance",
+      "candidates": [
+        {
+          "source_video_id": "BV1opHK6TEXC",
+          "title": "AI革命玩成庞氏骗局？算力巨头利息飙破15%，纳指暴跌才刚开始！",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1tiWt6REvv",
+          "title": "纳斯达克将开启全天23小时交易#美股 #纳斯达克 #股票 #投资",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_25",
+      "question": "2026 年新能源车补贴政策有哪些变化？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV1WGWu6bEYn",
+          "title": "电车冬天续航变少的原因，以及4个能提升冬天续航的方法",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1L5xm68Eqa",
+          "title": "工信部第413批部分新车公告和变更扩展目录纯享版",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_26",
+      "question": "个人养老金制度对不同收入人群影响一样吗？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV1K53d6hELd",
+          "title": "个税20%+的朋友，个人养老金要涨了，一起来薅羊毛",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1PC4y1D7Wq",
+          "title": "个人养老金账户买养老保险，划算吗？全面解析！",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_27",
+      "question": "房地产限购放松后一线城市房价会怎么走？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV1RCW46cE5w",
+          "title": "【高盛+李迅雷重磅】中国房价可能跌到2030年！高盛抛出惊人预测：房地产税也要来了？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1JstP6SEwz",
+          "title": "房价要企稳了吗？本次房价回暖是房地产要复苏吗？如何判断房价是否触底",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_28",
+      "question": "AI 监管立法对中小创业公司意味着什么？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV17op96VEX8",
+          "title": "一口气轻松了解量化，量化是怎么赚钱的？",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1jwW46FEuT",
+          "title": "【采风】苏州大三男生宿舍制作AI漫剧 营收超300万元 团队5人7天做3部漫剧 爆款播放量破15亿 单剧创收200多万元",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_29",
+      "question": "延迟退休对不同年龄段劳动者的影响有哪些？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV1vdnZ6kEp6",
+          "title": "劳动者缺的体面要靠什么来补？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1s2PQzmE69",
+          "title": "普通人弹性退休，其实有个最优解",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_30",
+      "question": "数据跨境流动新规对企业出海有什么影响？",
+      "category": "policy",
+      "candidates": [
+        {
+          "source_video_id": "BV1LHJ26VEQh",
+          "title": "Ozon OGL物流费用全景解析｜6档费率表+计费示例｜新手必看避坑指南",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1mj411o7XP",
+          "title": "2023【新增必考】 三国法： 网络安全与数据跨境流动",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_31",
+      "question": "一线城市和二三线城市生活成本的真实差距有多大？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV1S541167zy",
+          "title": "一线城市vs18线小城市的不同人生对比｜我为什么要留在上海？",
+          "rank": 11,
+          "selected": true,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1o1Wb6qE5R",
+          "title": "新走向 让换乘更方便【星城公共交通摄影工作室】长沙浏阳公交发展浏阳北2路原声原速前方展望POV（长交学院-汽车西北站）",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_32",
+      "question": "年轻人到底应不应该买车？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV17tWu6EEHW",
+          "title": "高性价比人生，买车不烧心，代步选它刚刚好",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1VwxN6qEPC",
+          "title": "年轻人15万买个啥车",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_33",
+      "question": "租房和买房在长期财务上到底哪个更划算？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV1kS4G6rENk",
+          "title": "现在到底能不能抄底买房",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1PXWu6wEUX",
+          "title": "10月份工资到帐，加班52小时工资破纪录，一家人出租房加餐庆祝",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_34",
+      "question": "远程办公真的能提升工作效率吗？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV1u5411K7Bb",
+          "title": "12、华为下一代防火墙 想要远程办公怎么办？（纯L2TP）",
+          "rank": 11,
+          "selected": true,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1rv411M7GV",
+          "title": "居家办公为什么效率反而低？如何像上班一样保持专注？",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_35",
+      "question": "独居生活对年轻人的心理状态有什么影响？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV1KvJ96mE4W",
+          "title": "长期拖延不是你本生就爱拖延 而是因为慢性压力",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1Vu4L6iETK",
+          "title": "幸福悖论：日子越过越好，人为什么越来越不安？",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_36",
+      "question": "宠物经济为什么在年轻人中这么火？",
+      "category": "lifestyle",
+      "candidates": [
+        {
+          "source_video_id": "BV1x2pd6ZEq4",
+          "title": "黄总聊老龄化经济：未来最有消费力的老年人是谁？",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1RP411c7Z7",
+          "title": "宠物经济 当代人的消费新时尚",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_37",
+      "question": "2026 年 Java 后端岗位的真实就业情况如何？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV1GAxj6iEar",
+          "title": "【大厂Java面试】你用过哪些设计模式？别再说单例、工厂、策略！Java后端/AI/跳槽涨薪/求职面试/后端开发/Java场景题/并发编程/JVM/MySQL",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1KT9WB5E5C",
+          "title": "26届Java后端艰难的春招",
+          "rank": 16,
+          "selected": true,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_38",
+      "question": "AI 编程工具会取代初级程序员吗？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV1cq5q6CEu3",
+          "title": "从夯到拉，锐评 32 个 AI 编程工具！",
+          "rank": 11,
+          "selected": true,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1XrnB6nEzQ",
+          "title": "Copilot 11 月 16 日下架三个模型，Pro 用户只剩一个替代能选",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_39",
+      "question": "大厂和创业公司的工作体验有什么真实差异？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV1jFui6pEdZ",
+          "title": "未来想创业，大厂vs初创怎么选更容易偷师",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1xJ4w6HEXu",
+          "title": "互联网大厂AI烧钱大考：万亿资本开支，到底能不能赚回来？",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_40",
+      "question": "35 岁程序员的职业风险到底有多大？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV11cWt6UEvC",
+          "title": "从高薪就业到劝退转行，计算机学生差距到底在哪",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1yHxD6nECC",
+          "title": "AI 时代还需要管理者吗？养孩子像重活一次。程序员 35 岁来临前的焦虑",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_41",
+      "question": "转行做产品经理需要付出哪些真实成本？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV1avna6wEfC",
+          "title": "【老龚】设计师转AI产品经理好吗？先看岗位需求变化",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1QLbz6iEN3",
+          "title": "机会成本、沉没成本、边际成本，一次讲清别再混淆",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_42",
+      "question": "远程工作对职业发展是帮助还是阻碍？",
+      "category": "career",
+      "candidates": [
+        {
+          "source_video_id": "BV1g6sf67Edz",
+          "title": "责任心强会带来哪些职业损害？3种损耗机制与边界管理的方法",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1LW4y1R7EH",
+          "title": "【北京大学】大学生职业发展与就业指导（全108讲）谢伟",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_43",
+      "question": "黑洞照片是怎样拍出来的？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV1dA4y1S7zj",
+          "title": "事件视界望远镜是如何给黑洞拍照的？",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1ZYWNeFENX",
+          "title": "甚长基线干涉测量(VLBI)-一种可以为黑洞\"拍照\"的天文测量技术",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_44",
+      "question": "室温超导研究目前有哪些可信进展？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV15AxT6yE3j",
+          "title": "前沿物理：百年夙愿实现了！四大基本力 2026 年迎来理论突破！",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1gJxu6rEAk",
+          "title": "为什么叫“APEC领导人非正式会议”？“非正式”反而最重要？",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_45",
+      "question": "mRNA 疫苗的长期安全性证据如何？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV1qH4y1Z7bm",
+          "title": "十分钟带你看懂什么是核苷碱基修饰与mRNA疫苗",
+          "rank": 11,
+          "selected": false,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1oA8p6eEsV",
+          "title": "研究惊曝：辉瑞、莫德纳mRNA疫苗刺突蛋白可在体内存留超3.5年，引发慢性病浪潮",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_46",
+      "question": "人类寿命延长研究最近有哪些真实突破？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV1i74G6YEQy",
+          "title": "人性之囚徒困境:被伤害后,你该原谅还是还击?一场实验给出了最优解｜《合作的进化》",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1Y9WM6rEox",
+          "title": "【youquiz】采访医生：现在的年轻人为何加速衰老了？如何有效减缓衰老呢？有哪些生活习惯需要注意",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    },
+    {
+      "id": "broad_47",
+      "question": "可控核聚变商业化还有多远？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV1NM9YBvE1Z",
+          "title": "为什么说可控核聚变真的快要实现了？不听忽悠，聚变三重积可以告诉你一切",
+          "rank": 11,
+          "selected": true,
+          "label": 1
+        },
+        {
+          "source_video_id": "BV1uAHk6oEtq",
+          "title": "我如果小心掌握了小型可控核聚变，就像钢铁侠一样，我会是什么待遇？",
+          "rank": 16,
+          "selected": false,
+          "label": 0
+        }
+      ]
+    },
+    {
+      "id": "broad_48",
+      "question": "AI 是否能帮助发现新的科学规律？",
+      "category": "science",
+      "candidates": [
+        {
+          "source_video_id": "BV1fZJ26mEiY",
+          "title": "科学家们用物理智斗爱因斯坦？",
+          "rank": 11,
+          "selected": false,
+          "label": 0
+        },
+        {
+          "source_video_id": "BV1jrHA6tEok",
+          "title": "别盲信AI Agent：如何像科学家一样设计可靠的评估测试 | AI Engineer",
+          "rank": 16,
+          "selected": false,
+          "label": 1
+        }
+      ]
+    }
+  ]
+}
