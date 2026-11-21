@@ -1,0 +1,123 @@
+{
+  "task_id": "059254f0-3303-4228-ab5d-e736b6bd71e2",
+  "sections": [
+    {
+      "order_no": 1,
+      "title": "Conclusion",
+      "content_md": "现有证据不足以对“AI 编程工具是否真的能提升开发效率”给出定量或对照性的结论。证据块中可确认的仅是若干使用层面的观察：AI 生成结果需要人工复核，例如在测试点生成场景中，用户需逐条判断并删除 AI 因幻觉或需求理解不到位而生成的错误测试点 [ev:9115ff59-f809-487d-b29b-16162ef90cc4]；同时，产品设计环节中用户对 AI 产出采取“方向一致即可、细节后续迭代”的接受标准 [ev:41fca6b5-31cf-43ca-a23e-ab0f4693eeb4]。此外，是否借助 AI 增加 demo 环节需视项目复杂度而定，简单项目做 demo 可能反而重复劳动、不如直接做完整产品 [ev:2e12f590-f902-49b8-af82-b82240d6543b]。这些证据只反映具体操作流程与人工介入方式，并未提供效率提升的量化数据或可比较的基准，因此本章无法就效率提升与否作出确定性判断。",
+      "status": "DONE"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "e4ff53ad-6965-4bfe-a346-1be3d253e2af",
+      "section_id": "s1",
+      "text": "现有证据不足以对“AI 编程工具是否真的能提升开发效率”给出定量或对照性的结论。",
+      "qualifiers": {}
+    },
+    {
+      "claim_id": "d7eec255-5c03-4d6c-ba76-f2f03e35b3b8",
+      "section_id": "s1",
+      "text": "证据块中可确认的仅是若干使用层面的观察：AI 生成结果需要人工复核，例如在测试点生成场景中，用户需逐条判断并删除 AI 因幻觉或需求理解不到位而生成的错误测试点 ；同时，产品设计环节中用户对 AI 产出采取“方向一致即可、细节后续迭代”的接受标准 。",
+      "qualifiers": {
+        "condition": "若干使用层面的观察：AI 生成结果需要人工"
+      }
+    },
+    {
+      "claim_id": "d2961ab3-a262-4e69-b173-293358733fb5",
+      "section_id": "s1",
+      "text": "此外，是否借助 AI 增加 demo 环节需视项目复杂度而定，简单项目做 demo 可能反而重复劳动、不如直接做完整产品 。",
+      "qualifiers": {}
+    },
+    {
+      "claim_id": "c4d76250-bc88-4e1e-9fb6-72a4a314e0a0",
+      "section_id": "s1",
+      "text": "这些证据只反映具体操作流程与人工介入方式，并未提供效率提升的量化数据或可比较的基准，因此本章无法就效率提升与否作出确定性判断。",
+      "qualifiers": {}
+    }
+  ],
+  "ledger": [
+    {
+      "claim_id": "e4ff53ad-6965-4bfe-a346-1be3d253e2af",
+      "evidence_id": null,
+      "support_relation": "no_evidence",
+      "trust_score": 0.0,
+      "conflict_type": "none",
+      "rationale": "未绑定有效证据",
+      "verified": false
+    },
+    {
+      "claim_id": "d7eec255-5c03-4d6c-ba76-f2f03e35b3b8",
+      "evidence_id": "9115ff59-f809-487d-b29b-16162ef90cc4",
+      "support_relation": "support",
+      "trust_score": 0.096,
+      "conflict_type": "none",
+      "rationale": "引用存在，但 claim 与证据文本相似度偏低",
+      "verified": false
+    },
+    {
+      "claim_id": "d7eec255-5c03-4d6c-ba76-f2f03e35b3b8",
+      "evidence_id": "41fca6b5-31cf-43ca-a23e-ab0f4693eeb4",
+      "support_relation": "support",
+      "trust_score": 0.096,
+      "conflict_type": "none",
+      "rationale": "引用存在，但 claim 与证据文本相似度偏低",
+      "verified": false
+    },
+    {
+      "claim_id": "d2961ab3-a262-4e69-b173-293358733fb5",
+      "evidence_id": "2e12f590-f902-49b8-af82-b82240d6543b",
+      "support_relation": "support",
+      "trust_score": 0.0656,
+      "conflict_type": "none",
+      "rationale": "引用存在，但 claim 与证据文本相似度偏低",
+      "verified": false
+    },
+    {
+      "claim_id": "c4d76250-bc88-4e1e-9fb6-72a4a314e0a0",
+      "evidence_id": null,
+      "support_relation": "no_evidence",
+      "trust_score": 0.0,
+      "conflict_type": "none",
+      "rationale": "未绑定有效证据",
+      "verified": false
+    }
+  ],
+  "citations": [
+    {
+      "evidence_id": "41fca6b5-31cf-43ca-a23e-ab0f4693eeb4",
+      "video_id": "25ed6829-2d17-422a-bc96-d40d86805f8f",
+      "start_ms": 680730,
+      "end_ms": 681370,
+      "modality": "asr",
+      "quote": "到这里",
+      "url": "https://www.bilibili.com/video/BV154426xEha",
+      "source": "bilibili",
+      "source_video_id": "BV154426xEha"
+    },
+    {
+      "evidence_id": "9115ff59-f809-487d-b29b-16162ef90cc4",
+      "video_id": "c60dd3d9-57a7-458e-b9ff-4bac4f329805",
+      "start_ms": 713980,
+      "end_ms": 717699,
+      "modality": "asr",
+      "quote": "那这里面生成了一个啊测试点好",
+      "url": "https://www.bilibili.com/video/BV1mtxp6kEWG",
+      "source": "bilibili",
+      "source_video_id": "BV1mtxp6kEWG"
+    },
+    {
+      "evidence_id": "2e12f590-f902-49b8-af82-b82240d6543b",
+      "video_id": "25ed6829-2d17-422a-bc96-d40d86805f8f",
+      "start_ms": 849800,
+      "end_ms": 851640,
+      "modality": "asr",
+      "quote": "具体该怎么跟AI说呢",
+      "url": "https://www.bilibili.com/video/BV154426xEha",
+      "source": "bilibili",
+      "source_video_id": "BV154426xEha"
+    }
+  ],
+  "conflicts": [],
+  "status": "DONE"
+}

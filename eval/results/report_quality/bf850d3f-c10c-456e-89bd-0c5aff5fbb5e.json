@@ -1,0 +1,60 @@
+{
+  "task_id": "bf850d3f-c10c-456e-89bd-0c5aff5fbb5e",
+  "sections": [
+    {
+      "order_no": 1,
+      "title": "Conclusion",
+      "content_md": "现有证据仅能支持一条结论性事实：该三合一冲锋衣的表层具备防水与耐磨性能，可在早高峰急雨、通勤冷风等场景中起到阻挡作用 [ev:8bbd723f-6c6b-49b6-a60c-be5f33e2960d]。关于防水等级、耐水压数值、接缝压胶工艺、防水持久性及实测表现，现有证据均未提及，现有证据不足，无法进一步判断其防水性能的具体水平。",
+      "status": "DONE"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "32a001ad-3e79-4da7-baec-411f7bc50004",
+      "section_id": "s1",
+      "text": "现有证据仅能支持一条结论性事实：该三合一冲锋衣的表层具备防水与耐磨性能，可在早高峰急雨、通勤冷风等场景中起到阻挡作用 。",
+      "qualifiers": {}
+    },
+    {
+      "claim_id": "2f0b080a-7f4f-4e75-bfc0-7f5383f3aa2e",
+      "section_id": "s1",
+      "text": "关于防水等级、耐水压数值、接缝压胶工艺、防水持久性及实测表现，现有证据均未提及，现有证据不足，无法进一步判断其防水性能的具体水平。",
+      "qualifiers": {}
+    }
+  ],
+  "ledger": [
+    {
+      "claim_id": "32a001ad-3e79-4da7-baec-411f7bc50004",
+      "evidence_id": "8bbd723f-6c6b-49b6-a60c-be5f33e2960d",
+      "support_relation": "support",
+      "trust_score": 0.058,
+      "conflict_type": "none",
+      "rationale": "引用存在，但 claim 与证据文本相似度偏低",
+      "verified": false
+    },
+    {
+      "claim_id": "2f0b080a-7f4f-4e75-bfc0-7f5383f3aa2e",
+      "evidence_id": null,
+      "support_relation": "no_evidence",
+      "trust_score": 0.0,
+      "conflict_type": "none",
+      "rationale": "未绑定有效证据",
+      "verified": false
+    }
+  ],
+  "citations": [
+    {
+      "evidence_id": "8bbd723f-6c6b-49b6-a60c-be5f33e2960d",
+      "video_id": "82e1c4e0-780b-41f6-97e7-aa4714ccf287",
+      "start_ms": 240,
+      "end_ms": 2540,
+      "modality": "asr",
+      "quote": "无限进步是我们一直以来的理念",
+      "url": "https://www.bilibili.com/video/BV1ZP4B6MECn",
+      "source": "bilibili",
+      "source_video_id": "BV1ZP4B6MECn"
+    }
+  ],
+  "conflicts": [],
+  "status": "DONE"
+}

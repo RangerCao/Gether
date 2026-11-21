@@ -1,0 +1,23 @@
+[
+  {
+    "question": "AI 编程工具真的能提升开发效率吗？",
+    "discovery_id": "74ed6097-609c-4f52-8cc9-9f403f976d3f",
+    "candidate_count": 2,
+    "candidate_titles": [
+      "🚀Cursor+Serena最佳组合告别AI编程工具短板！支持Claude Code、windsurf、Cline！让AI编程不再是简单读取代码而是智能分析",
+      "AI 编程模型排行榜加入稳定性惩罚与 Python 代码质量评测"
+    ],
+    "task_id": "15cfa81d-4b29-4570-8423-121b48a78d4a",
+    "parse_status": "PLANNING",
+    "parse_progress": 90,
+    "plan_status": 200,
+    "outline_count": 6,
+    "stream_status": 401,
+    "stream_events": [],
+    "report_sections": 0,
+    "report_claims": 0,
+    "report_citations": 0,
+    "elapsed_seconds": 295.2,
+    "ok": false
+  }
+]
