@@ -47,6 +47,13 @@ public class TaskController {
     ) {
     }
 
+    public record SingleTaskRequest(
+            @NotBlank String input,
+            String question,
+            String mode
+    ) {
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskView create(
@@ -54,6 +61,27 @@ public class TaskController {
             @org.springframework.security.core.annotation.AuthenticationPrincipal UserPrincipal principal
     ) {
         return service.create(request.videos(), request.question(), principal.userId());
+    }
+
+    /** 单视频研报：BV 号或 B 站链接，任务在执行层创建并自动开始解析。 */
+    @PostMapping("/single")
+    @ResponseStatus(HttpStatus.CREATED)
+    public JsonNode createSingle(
+            @Valid @RequestBody SingleTaskRequest request,
+            @org.springframework.security.core.annotation.AuthenticationPrincipal UserPrincipal principal
+    ) {
+        service.ensureQuota(principal.userId());
+        JsonNode result = executor.createSingleTask(
+                request.input().trim(),
+                request.question(),
+                request.mode(),
+                principal.userId()
+        );
+        String taskId = result.path("task_id").asText("");
+        if (!taskId.isBlank()) {
+            executor.triggerParse(UUID.fromString(taskId));
+        }
+        return result;
     }
 
     @GetMapping

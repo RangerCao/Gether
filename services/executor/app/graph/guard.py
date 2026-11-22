@@ -8,6 +8,8 @@ from dataclasses import dataclass
 from difflib import SequenceMatcher
 
 CITATION_RE = re.compile(r"\[ev:([0-9a-fA-F-]{8,})\]", re.IGNORECASE)
+CITATION_BRACKET_RE = re.compile(r"\[ev:([^\]]+)\]", re.IGNORECASE)
+ID_RE = re.compile(r"[0-9a-fA-F-]{8,}")
 SENTENCE_RE = re.compile(r"[^。！？\n]+[。！？]?")
 NUMBER_RE = re.compile(r"\d+(?:\.\d+)?%?")
 NEGATIONS = ("不是", "不会", "没有", "并未", "不再", "不能", "无法", "否认", "不同意")
@@ -30,8 +32,27 @@ class CitationStats:
         }
 
 
+def expand_citation_brackets(text: str) -> str:
+    """把模型常见的 `[ev:a, ev:b]` 拆成两个合法引用。
+
+    模型经常在一个方括号里塞多个 id；CITATION_RE 只认单 id，
+    不拆会让整句因“没有引用”被删除。
+    """
+    def replace(match: re.Match) -> str:
+        parts = [
+            re.sub(r"^ev:", "", part.strip(), flags=re.IGNORECASE)
+            for part in re.split(r"[,，、;；\s]+", match.group(1))
+            if part.strip()
+        ]
+        expanded = [f"[ev:{part}]" for part in parts if ID_RE.fullmatch(part)]
+        return "".join(expanded) if expanded else match.group(0)
+
+    return CITATION_BRACKET_RE.sub(replace, text)
+
+
 def strip_invalid_citations(text: str, valid_ids: set[str]) -> tuple[str, CitationStats]:
     stats = CitationStats()
+    text = expand_citation_brackets(text)
 
     def replace(match: re.Match) -> str:
         nonlocal stats

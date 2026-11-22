@@ -53,6 +53,23 @@ public class ExecutorClient {
         }
     }
 
+    public JsonNode createSingleTask(String input, String question, String mode, UUID userId) {
+        java.util.Map<String, Object> body = new java.util.HashMap<>();
+        body.put("input", input);
+        body.put("mode", mode == null || mode.isBlank() ? "fast" : mode);
+        if (question != null && !question.isBlank()) {
+            body.put("question", question);
+        }
+        if (userId != null) {
+            body.put("user_id", userId.toString());
+        }
+        return client.post()
+                .uri("/internal/single/tasks")
+                .body(body)
+                .retrieve()
+                .body(JsonNode.class);
+    }
+
     private void triggerParseFallback(UUID taskId, Throwable error) {
         throw new ExecutorUnavailableException("AI 执行层暂不可用：" + error.getMessage(), error);
     }

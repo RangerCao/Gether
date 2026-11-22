@@ -15,6 +15,20 @@ export type VideoRef = {
   duration_ms: number | null;
 };
 
+export type VideoMeta = {
+  source?: string;
+  source_video_id: string;
+  url: string;
+  title: string | null;
+  uploader?: string | null;
+  duration_ms?: number | null;
+  views?: number | null;
+  published_at?: number | null;
+  description?: string | null;
+  cover?: string | null;
+  page?: number;
+};
+
 export type Facet = {
   id: string;
   label: string;
@@ -209,6 +223,19 @@ export const api = {
     ),
   getTask: (taskId: string) =>
     request<TaskDetail>(`/api/tasks/${taskId}`),
+  createSingle: (
+    input: string,
+    question?: string,
+    mode: "fast" | "quality" = "fast",
+  ) =>
+    request<SingleTaskResult>("/api/tasks/single", {
+      method: "POST",
+      body: JSON.stringify({
+        input,
+        mode,
+        ...(question ? { question } : {}),
+      }),
+    }),
   listTasks: (limit = 12) =>
     request<TaskHistoryItem[]>(`/api/tasks?limit=${limit}`),
   parseTask: (taskId: string) =>
@@ -274,11 +301,44 @@ export type Citation = {
 export type ReportData = {
   task_id: string;
   status: string;
+  kind?: "single_video" | "multi_video" | string;
+  video?: VideoMeta;
+  timeline?: {
+    index: number;
+    start_ms: number;
+    end_ms: number;
+    text: string;
+    evidence_ids: string[];
+  }[];
+  gaps?: {
+    claim_id: string;
+    section_id?: string;
+    text: string;
+    reason: string;
+  }[];
+  quality?: {
+    evidence_count?: number;
+    asr_count?: number;
+    ocr_count?: number;
+    frame_count?: number;
+    duration_ms?: number;
+    claim_count?: number;
+    verified_claim_count?: number;
+    support_rate?: number;
+    timeline_windows?: number;
+  };
   sections: { order_no: number; title: string; content_md: string; status: string }[];
   claims: Claim[];
   ledger: { claim_id: string; evidence_id: string | null; support_relation: string; conflict_type: string; verified: boolean }[];
   conflicts: Conflict[];
   citations?: Citation[];
+};
+
+export type SingleTaskResult = {
+  task_id: string;
+  status: string;
+  kind: string;
+  video: VideoMeta;
 };
 
 export type StreamEvent = { id?: string; event: string; data: Record<string, unknown> };

@@ -15,6 +15,7 @@ from app.graph.service import ReportError
 from app.index.service import IndexNotFound
 from app.ingest.sources.base import SourceError
 from app.services.parse_service import TaskNotFound
+from app.single.service import SingleVideoError
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -28,6 +29,13 @@ class CreateTaskRequest(BaseModel):
     videos: list[str] = Field(min_length=1)
     user_id: str | None = None
     question: str | None = None
+
+
+class SingleTaskRequest(BaseModel):
+    input: str = Field(min_length=1)
+    question: str | None = None
+    mode: Literal["fast", "quality"] = "fast"
+    user_id: str | None = None
 
 
 class DiscoveryRequest(BaseModel):
@@ -167,6 +175,28 @@ async def create_task(payload: CreateTaskRequest, request: Request) -> dict:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail={"code": "INVALID_INPUT", "message": str(exc)}) from exc
     return {"task_id": task_id, "status": "PENDING"}
+
+
+@router.post("/internal/single/tasks", status_code=status.HTTP_201_CREATED)
+async def create_single_task(payload: SingleTaskRequest, request: Request) -> dict:
+    service = getattr(request.app.state, "single_service", None)
+    if service is None:
+        raise HTTPException(status_code=404, detail={"code": "SINGLE_DISABLED"})
+    try:
+        return await service.create(
+            input=payload.input,
+            question=payload.question,
+            mode=payload.mode,
+            user_id=payload.user_id,
+        )
+    except SingleVideoError as exc:
+        raise HTTPException(
+            status_code=400, detail={"code": exc.code, "message": exc.message}
+        ) from exc
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=400, detail={"code": "INVALID_INPUT", "message": str(exc)}
+        ) from exc
 
 
 @router.post("/internal/tasks/{task_id}/parse", status_code=status.HTTP_202_ACCEPTED)

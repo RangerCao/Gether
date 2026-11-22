@@ -45,6 +45,7 @@ class ParseService:
         *,
         question: str | None = None,
         mode: str = "quality",
+        extra: dict[str, Any] | None = None,
     ) -> str:
         cleaned = [url.strip() for url in urls if url and url.strip()]
         if not cleaned:
@@ -55,6 +56,16 @@ class ParseService:
         if question:
             payload["question"] = question.strip()
         payload["mode"] = mode if mode in {"fast", "quality"} else "quality"
+        if extra:
+            # 任务类型等附加信息（如 kind=single_video + 视频元数据），
+            # 不允许覆盖已归一化的 videos/question/mode。
+            payload.update(
+                {
+                    key: value
+                    for key, value in extra.items()
+                    if key not in {"videos", "question", "mode"}
+                }
+            )
         return await self.repository.create_task(payload, user_id=user_id)
 
     async def get_task(self, task_id: str) -> dict[str, Any]:

@@ -22,12 +22,23 @@ from app.graph.guard import (
 from app.graph.prompts import (
     CRITIC_SYSTEM,
     PLANNER_SYSTEM,
+    SINGLE_WRITER_SYSTEM,
     WRITER_SYSTEM,
     critic_user,
     planner_user,
+    single_writer_user,
     writer_user,
 )
 from app.graph.rebind import EvidenceRebinder
+from app.graph.single import (
+    assemble_single_markdown,
+    build_single_outline,
+    is_single_video,
+    single_gaps,
+    single_quality,
+    timeline_windows,
+    window_as_context,
+)
 from app.graph.state import ReportState
 from app.index.service import IndexNotFound, IndexService
 from app.llm.base import LLMClient, LLMRole, Message
@@ -62,6 +73,13 @@ class ReportWorkflow:
 
     async def planner(self, state: ReportState) -> dict:
         task_id = state["task_id"]
+        if is_single_video(state.get("report_kind")):
+            # 单视频用固定六段式，保证结构稳定、少一次 LLM 调用；
+            # 用户带问题时追加“针对你的问题”章节。
+            outline = build_single_outline(
+                state.get("report_question") or ""
+            )
+            return {"outline": outline, "warnings": state.get("warnings", [])}
         evidence = await self.task_repository.list_evidence(task_id, limit=100)
         payload = [item.model_dump(mode="json") for item in evidence]
         raw = await self.llm.complete(
@@ -98,28 +116,55 @@ class ReportWorkflow:
             "conflicts": [],
         }
 
-    async def _contexts_for(self, task_id: str, section: dict) -> list[dict]:
+    async def _contexts_for(
+        self, task_id: str, section: dict, *, kind: str | None = None
+    ) -> list[dict]:
+        single = is_single_video(kind)
+        if single and str(section.get("id")) == "s2":
+            # “内容脉络”必须覆盖全片，检索天然偏向开头与关键词密集段，
+            # 这里直接用时间轴窗口，避免后半段消失。
+            return await self._timeline_contexts(task_id)
         query = " ".join(
             [str(section.get("title") or "")]
             + [str(point) for point in section.get("points", [])]
             + ["实测", "数据", "观点"]
         )
         try:
-            hits = await self.index_service.search(task_id, query, top_k=6)
-            return [hit.as_dict() for hit in hits]
+            hits = await self.index_service.search(
+                task_id, query, top_k=8 if single else 6
+            )
+            contexts = [hit.as_dict() for hit in hits]
+            if single and len(contexts) < 3:
+                # 单视频的索引可能还在后台构建，先用时间轴兜住。
+                fallback = await self._timeline_contexts(task_id, limit=4)
+                contexts = contexts + [item for item in fallback if item not in contexts]
+            return contexts
         except IndexNotFound:
             # 自动索引可能还在后台执行，先补建一次，避免生成空研报。
             logger.warning("index_missing_retry task=%s", task_id)
             try:
                 await self.index_service.index_task(task_id)
-                hits = await self.index_service.search(task_id, query, top_k=6)
+                hits = await self.index_service.search(
+                    task_id, query, top_k=8 if single else 6
+                )
                 return [hit.as_dict() for hit in hits]
             except Exception as exc:
                 logger.warning("index_retry_failed task=%s: %s", task_id, exc)
-                return []
+                return await self._timeline_contexts(task_id) if single else []
         except Exception as exc:
             logger.warning("retrieve_failed task=%s: %s", task_id, exc)
+            return await self._timeline_contexts(task_id) if single else []
+
+    async def _timeline_contexts(self, task_id: str, limit: int | None = None) -> list[dict]:
+        try:
+            evidence = await self.task_repository.list_evidence(task_id, limit=100000)
+        except Exception as exc:
+            logger.warning("timeline_contexts_failed task=%s: %s", task_id, exc)
             return []
+        windows = timeline_windows(evidence)
+        if limit is not None:
+            windows = windows[:limit]
+        return [window_as_context(window) for window in windows]
 
     async def retrieve(self, state: ReportState) -> dict:
         outline = state.get("outline", [])
@@ -128,7 +173,9 @@ class ReportWorkflow:
             return {"contexts": state.get("contexts", {})}
         section = outline[index]
         section_id = str(section.get("id") or f"s{index + 1}")
-        contexts = await self._contexts_for(state["task_id"], section)
+        contexts = await self._contexts_for(
+            state["task_id"], section, kind=state.get("report_kind")
+        )
         all_contexts = dict(state.get("contexts", {}))
         all_contexts[section_id] = contexts
         return {"contexts": all_contexts}
@@ -138,26 +185,43 @@ class ReportWorkflow:
         section: dict,
         contexts: list[dict],
         question: str,
+        *,
+        kind: str | None = None,
+        video_title: str = "",
     ) -> str:
         if not contexts:
             return "现有证据不足，无法形成有依据的结论。"
-        try:
-            text = await self.llm.complete(
-                LLMRole.WRITER,
-                [
-                    Message("system", WRITER_SYSTEM),
-                    Message("user", writer_user(section, contexts, question)),
-                ],
-                max_tokens=self.settings.llm_max_tokens,
-            )
-            return text.strip()
-        except Exception as exc:
-            return f"现有证据不足，本章节生成失败：{exc}"
+        single = is_single_video(kind)
+        system = SINGLE_WRITER_SYSTEM if single else WRITER_SYSTEM
+        user = (
+            single_writer_user(section, contexts, question, video_title)
+            if single
+            else writer_user(section, contexts, question)
+        )
+        last_error: Exception | None = None
+        # 并行写作时偶发连接被重置，重试一次比整章失败更划算。
+        for attempt in range(2):
+            try:
+                text = await self.llm.complete(
+                    LLMRole.WRITER,
+                    [Message("system", system), Message("user", user)],
+                    max_tokens=self.settings.llm_max_tokens,
+                )
+                return text.strip()
+            except Exception as exc:
+                last_error = exc
+                if attempt == 0:
+                    await asyncio.sleep(1.5)
+        return f"现有证据不足，本章节生成失败：{last_error}"
 
     async def parallel_draft(self, state: ReportState) -> dict:
         """快速模式：检索与章节写作并行，跳过 critic LLM 调用。"""
         outline = state.get("outline", [])
-        question = state.get("question", "")
+        kind = state.get("report_kind")
+        question = state.get("report_question") or (
+            "" if is_single_video(kind) else state.get("question", "")
+        )
+        video_title = str((state.get("video_meta") or {}).get("title") or "")
         if not outline:
             return {"drafts": {}, "contexts": {}, "current_index": 0}
 
@@ -175,8 +239,16 @@ class ReportWorkflow:
         async def draft_one(index: int, section: dict) -> tuple[str, list[dict], str]:
             section_id = str(section.get("id") or f"s{index + 1}")
             async with semaphore:
-                contexts = await self._contexts_for(state["task_id"], section)
-                text = await self._write_section(section, contexts, question)
+                contexts = await self._contexts_for(
+                    state["task_id"], section, kind=kind
+                )
+                text = await self._write_section(
+                    section,
+                    contexts,
+                    question,
+                    kind=kind,
+                    video_title=video_title,
+                )
             return section_id, contexts, text
 
         results = await asyncio.gather(
@@ -238,8 +310,16 @@ class ReportWorkflow:
         section = outline[index] if outline else {}
         section_id = str(section.get("id") or f"s{index + 1}")
         contexts = state.get("contexts", {}).get(section_id, [])
+        kind = state.get("report_kind")
+        question = state.get("report_question") or (
+            "" if is_single_video(kind) else state.get("question", "")
+        )
         text = await self._write_section(
-            section, contexts, state.get("question", "")
+            section,
+            contexts,
+            question,
+            kind=kind,
+            video_title=str((state.get("video_meta") or {}).get("title") or ""),
         )
         drafts = dict(state.get("drafts", {}))
         drafts[section_id] = text
@@ -266,8 +346,9 @@ class ReportWorkflow:
         }
         raw_drafts = state.get("drafts", {})
         warnings = list(state.get("warnings", []))
+        single = is_single_video(state.get("report_kind"))
         _, citation_stats = claims_from_drafts(raw_drafts, evidence_map)
-        if self.rebinder is not None and (
+        if not single and self.rebinder is not None and (
             state.get("mode") != "fast" or self.settings.report_fast_rebind_enabled
         ):
             if len(evidence_map) > self.settings.report_rebind_max_evidence:
@@ -293,9 +374,27 @@ class ReportWorkflow:
         drafts, guard_stats = enforce_citations(raw_drafts, set(evidence_map))
         claims, _ = claims_from_drafts(drafts, evidence_map)
         ledger = build_ledger(claims, evidence_map)
-        conflicts = detect_conflicts(claims, evidence_map)
-        ledger = apply_conflicts(ledger, conflicts, claims)
-        report = assemble_report(state.get("outline", []), drafts)
+        gaps: list[dict] = []
+        quality: dict = {}
+        if single:
+            # 单视频不存在“跨来源冲突”，改成可核验性缺口。
+            conflicts = []
+            windows = timeline_windows(evidence)
+            gaps = single_gaps(claims, ledger)
+            quality = single_quality(evidence, claims, ledger, windows)
+            report = assemble_single_markdown(
+                state.get("video_meta") or {}, state.get("outline", []), drafts
+            )
+            if not windows:
+                warnings.append("未提取到可用语音/字幕，内容脉络可能缺失时间轴")
+            if gaps:
+                warnings.append(
+                    f"{len(gaps)} 条结论缺少可验证的原片证据，已在证据缺口中列出"
+                )
+        else:
+            conflicts = detect_conflicts(claims, evidence_map)
+            ledger = apply_conflicts(ledger, conflicts, claims)
+            report = assemble_report(state.get("outline", []), drafts)
         if guard_stats.get("sentences_removed"):
             warnings.append(
                 f"已移除 {guard_stats['sentences_removed']} 条无有效引用的正文句"
@@ -311,6 +410,10 @@ class ReportWorkflow:
             "claims": claims,
             "ledger": ledger,
             "conflicts": conflicts,
+            "gaps": gaps,
+            "quality": quality,
+            # 落库必须用通过引用校验的正文，否则 UI 会展示被 guard 删掉的句子。
+            "drafts": drafts,
             "citation_stats": citation_stats,
             "warnings": warnings,
             "report_markdown": report,

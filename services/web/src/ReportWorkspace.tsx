@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
+  formatViews,
   reportApi,
   type Citation,
   type OutlineSection,
@@ -28,6 +29,16 @@ function stripEvidenceMarkers(text: string): string {
     .replace(/[#*`]/g, "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function clock(ms: number): string {
+  const total = Math.max(Math.floor(ms / 1000), 0);
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  return hours
+    ? `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+    : `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
 
 export default function ReportWorkspace({
@@ -73,6 +84,28 @@ export default function ReportWorkspace({
     report?.citations?.forEach((citation) => map.set(citation.evidence_id, citation));
     return map;
   }, [report]);
+
+  const isSingle = report?.kind === "single_video";
+  const singleVideo = isSingle ? report?.video : undefined;
+
+  function playWindow(item: NonNullable<ReportData["timeline"]>[number]) {
+    if (!singleVideo) return;
+    const firstId = item.evidence_ids[0];
+    const citation = firstId ? citationsById.get(firstId) : undefined;
+    setActiveCitation(
+      citation ?? {
+        evidence_id: `timeline-${item.index}`,
+        video_id: "",
+        start_ms: item.start_ms,
+        end_ms: item.end_ms,
+        modality: "asr",
+        quote: item.text.slice(0, 140),
+        url: singleVideo.url,
+        source: "bilibili",
+        source_video_id: singleVideo.source_video_id,
+      },
+    );
+  }
 
   const summarySection = report?.sections?.[0];
   const summaryText = summarySection
@@ -408,9 +441,79 @@ export default function ReportWorkspace({
         </div>
       )}
 
+      {report && isSingle && singleVideo && (
+        <section className="video-card">
+          {singleVideo.cover ? (
+            <img
+              src={singleVideo.cover}
+              alt=""
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="video-cover-fallback">Bilibili</div>
+          )}
+          <div className="video-card-body">
+            <p className="eyebrow">
+              单视频研报 · {singleVideo.source_video_id}
+            </p>
+            <h2>{singleVideo.title || "未命名视频"}</h2>
+            <div className="video-meta">
+              {singleVideo.uploader && <span>UP主 {singleVideo.uploader}</span>}
+              {singleVideo.duration_ms ? (
+                <span>{clock(singleVideo.duration_ms)}</span>
+              ) : null}
+              {singleVideo.views != null && (
+                <span>{formatViews(singleVideo.views)} 播放</span>
+              )}
+              {singleVideo.published_at ? (
+                <span>
+                  {new Date(singleVideo.published_at * 1000).toLocaleDateString("zh-CN")}
+                </span>
+              ) : null}
+            </div>
+            <a
+              className="nav-link"
+              href={singleVideo.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              在 B 站打开原片 ↗
+            </a>
+          </div>
+        </section>
+      )}
+
       {report && (
         <div className="report-grid" id="report-body">
           <div className="report-main">
+            {isSingle && report.timeline?.length ? (
+              <section className="timeline-block">
+                <div className="panel-head">
+                  <b>内容脉络</b>
+                  <span>{report.timeline.length} 段</span>
+                </div>
+                <ol className="timeline-list">
+                  {report.timeline.map((item) => (
+                    <li key={item.index}>
+                      <button
+                        type="button"
+                        className="time-chip"
+                        title="跳到原片该时间点"
+                        onClick={() => playWindow(item)}
+                      >
+                        {clock(item.start_ms)}
+                      </button>
+                      <p>
+                        {item.text.length > 160
+                          ? `${item.text.slice(0, 160)}…`
+                          : item.text}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ) : null}
             {report.sections.map((section) => (
               <article className="report-section" key={section.order_no}>
                 <h3>{section.title}</h3>
@@ -521,10 +624,27 @@ export default function ReportWorkspace({
             )}
 
             <div className="panel-head">
-              <b>冲突裁决</b>
-              <span>{report.conflicts.length} 组</span>
+              <b>{isSingle ? "证据缺口" : "冲突裁决"}</b>
+              <span>
+                {isSingle
+                  ? `${report.gaps?.length ?? 0} 条`
+                  : `${report.conflicts.length} 组`}
+              </span>
             </div>
-            {report.conflicts.length === 0 ? (
+            {isSingle ? (
+              report.gaps?.length ? (
+                report.gaps.map((gap) => (
+                  <article className="gap-card" key={gap.claim_id}>
+                    <p>{gap.text}</p>
+                    <small>{gap.reason}</small>
+                  </article>
+                ))
+              ) : (
+                <p className="muted">
+                  所有结论都绑定了可验证的原片证据。
+                </p>
+              )
+            ) : report.conflicts.length === 0 ? (
               <p className="muted">
                 未检测到 claim 级冲突。单视频任务通常不会有跨来源冲突。
               </p>
@@ -572,9 +692,19 @@ export default function ReportWorkspace({
                 <dd>{report.ledger.length}</dd>
               </div>
               <div>
-                <dt>冲突</dt>
-                <dd>{report.conflicts.length}</dd>
+                <dt>{isSingle ? "时间轴" : "冲突"}</dt>
+                <dd>
+                  {isSingle
+                    ? (report.quality?.timeline_windows ?? report.timeline?.length ?? 0)
+                    : report.conflicts.length}
+                </dd>
               </div>
+              {isSingle && (
+                <div>
+                  <dt>证据支撑率</dt>
+                  <dd>{Math.round((report.quality?.support_rate ?? 0) * 100)}%</dd>
+                </div>
+              )}
               <div>
                 <dt>未验证 claim</dt>
                 <dd>

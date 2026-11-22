@@ -41,6 +41,9 @@ export default function App() {
   const [notice, setNotice] = useState<string | null>(null);
   const [history, setHistory] = useState<TaskHistoryItem[]>([]);
   const [mode, setMode] = useState<"fast" | "quality">("fast");
+  const [sourceMode, setSourceMode] = useState<"search" | "single">("search");
+  const [singleInput, setSingleInput] = useState("");
+  const [singleQuestion, setSingleQuestion] = useState("");
   const [minViews, setMinViews] = useState("");
   const autoRetried = useRef<Set<string>>(new Set());
   // 只有本次会话中新发起的任务才自动继续研报；刷新页面时不自动调用 LLM。
@@ -252,8 +255,7 @@ export default function App() {
     setNotice(null);
   }
 
-  async function handleConfirm() {
-    if (!session || selected.size === 0) return;
+  async function handleConfirm() {    if (!session || selected.size === 0) return;
     setBusy(true);
     setError(null);
     try {
@@ -267,6 +269,48 @@ export default function App() {
       setStageMessage("正在启动解析…");
       setPollKey((value) => value + 1);
       setNotice("已自动提交选片并启动解析，完成后会自动生成研报。");
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function switchMode(next: "search" | "single") {
+    if (next === sourceMode) return;
+    setSourceMode(next);
+    setSession(null);
+    setSelected(new Set());
+    setError(null);
+    setErrorInfo(null);
+    setNotice(null);
+  }
+
+  async function handleSingle(event: FormEvent) {
+    event.preventDefault();
+    const value = singleInput.trim();
+    if (!value) return;
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    setTaskId(null);
+    try {
+      const result = await api.createSingle(
+        value,
+        singleQuestion.trim() || undefined,
+        mode,
+      );
+      setAutoReport(true);
+      setTaskId(result.task_id);
+      window.localStorage.setItem("gether_task_id", result.task_id);
+      setTaskStatus("PARSING");
+      setTaskProgress(1);
+      setTaskEvidence(0);
+      setStageMessage("正在启动解析…");
+      setPollKey((current) => current + 1);
+      setNotice(
+        `已提交单视频任务：${result.video?.title || value}，解析完成后自动生成研报。`,
+      );
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -342,45 +386,107 @@ export default function App() {
         </p>
       </header>
 
+      <div className="mode-tabs" role="tablist" aria-label="研报模式">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={sourceMode === "search"}
+          className={`mode-tab ${sourceMode === "search" ? "active" : ""}`}
+          onClick={() => switchMode("search")}
+        >
+          按问题检索多视频
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={sourceMode === "single"}
+          className={`mode-tab ${sourceMode === "single" ? "active" : ""}`}
+          onClick={() => switchMode("single")}
+        >
+          单个视频研报
+        </button>
+      </div>
+
       <section className="steps">
-        <span className="step active">01 提问</span>
-        <span className="step">02 自动选片</span>
-        <span className="step">03 自动解析</span>
-        <span className="step">04 自动研报</span>
+        {sourceMode === "search" ? (
+          <>
+            <span className="step active">01 提问</span>
+            <span className="step">02 自动选片</span>
+            <span className="step">03 自动解析</span>
+            <span className="step">04 自动研报</span>
+          </>
+        ) : (
+          <>
+            <span className="step active">01 提供 BV / 链接</span>
+            <span className="step">02 解析原片</span>
+            <span className="step">03 生成研报</span>
+          </>
+        )}
       </section>
 
-      <form className="discover-form" onSubmit={handleDiscover}>
-        <input
-          value={question}
-          onChange={(event) => setQuestion(event.target.value)}
-          placeholder="例如：AI 编程工具真的能提升开发效率吗？"
-          aria-label="研究问题"
-        />
-        <label className="min-views-field">
-          <span>播放量 ≥</span>
+      {sourceMode === "search" ? (
+        <form className="discover-form" onSubmit={handleDiscover}>
           <input
-            type="number"
-            min="0"
-            step="1000"
-            value={minViews}
-            onChange={(event) => setMinViews(event.target.value)}
-            placeholder="默认 8000"
-            aria-label="最低播放量"
+            value={question}
+            onChange={(event) => setQuestion(event.target.value)}
+            placeholder="例如：AI 编程工具真的能提升开发效率吗？"
+            aria-label="研究问题"
           />
-        </label>
-        <select
-          className="mode-select"
-          value={mode}
-          onChange={(event) => setMode(event.target.value as "fast" | "quality")}
-          aria-label="解析模式"
-        >
-          <option value="fast">快速模式 · 并行研报 / 4 个视频</option>
-          <option value="quality">高质量 · 串行审稿 / 8 个视频</option>
-        </select>
-        <button disabled={busy || question.trim().length < 2}>
-          {busy ? "检索并准备解析中…" : "检索并生成研报"}
-        </button>
-      </form>
+          <label className="min-views-field">
+            <span>播放量 ≥</span>
+            <input
+              type="number"
+              min="0"
+              step="1000"
+              value={minViews}
+              onChange={(event) => setMinViews(event.target.value)}
+              placeholder="默认 8000"
+              aria-label="最低播放量"
+            />
+          </label>
+          <select
+            className="mode-select"
+            value={mode}
+            onChange={(event) => setMode(event.target.value as "fast" | "quality")}
+            aria-label="解析模式"
+          >
+            <option value="fast">快速模式 · 并行研报 / 4 个视频</option>
+            <option value="quality">高质量 · 串行审稿 / 8 个视频</option>
+          </select>
+          <button disabled={busy || question.trim().length < 2}>
+            {busy ? "检索并准备解析中…" : "检索并生成研报"}
+          </button>
+        </form>
+      ) : (
+        <form className="discover-form single-form" onSubmit={handleSingle}>
+          <div className="single-fields">
+            <input
+              value={singleInput}
+              onChange={(event) => setSingleInput(event.target.value)}
+              placeholder="BV1xx411c7mD 或 https://www.bilibili.com/video/BV…"
+              aria-label="B站视频 BV 号或链接"
+            />
+            <input
+              value={singleQuestion}
+              onChange={(event) => setSingleQuestion(event.target.value)}
+              placeholder="（可选）你想从这条视频里确认什么？留空则做完整总结"
+              aria-label="针对视频的问题"
+            />
+          </div>
+          <select
+            className="mode-select"
+            value={mode}
+            onChange={(event) => setMode(event.target.value as "fast" | "quality")}
+            aria-label="解析模式"
+          >
+            <option value="fast">快速模式 · 并行写作</option>
+            <option value="quality">高质量 · 逐章审稿</option>
+          </select>
+          <button disabled={busy || !singleInput.trim()}>
+            {busy ? "正在提交…" : "生成单视频研报"}
+          </button>
+        </form>
+      )}
 
       {history.length > 0 && (
         <section className="history-section">

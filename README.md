@@ -32,6 +32,7 @@ PostgreSQL(pgvector) + MinIO + Redis(可选)
 - [视频发现与筛选设计](docs/视频发现与筛选设计.md)
 - [Discovery、证据检索与排序设计](docs/Discovery与检索排序设计.md)
 - [项目初衷与评测原则](docs/项目初衷与评测原则.md)
+- [简历项目定位与演示脚本](docs/简历项目定位与演示脚本.md)
 - [任务状态与错误链路设计](docs/任务状态与错误链路设计.md)
 - [前端信息架构与设计规范](docs/前端信息架构与设计规范.md)
 
@@ -71,6 +72,27 @@ python eval/scripts/cross_encoder_rerank.py
 | P4 Java 治理层 | ✅ 状态机/虚拟线程/SSE/HMAC/前端代理/熔断/500 SSE soak/崩溃隔离/JWT |
 | P5 前端 | ✅ 自动链路；快速/高质量模式；阶段耗时；SSE 失败同步回退 |
 | P6 评测与包装 | ⬜ |
+| 单视频研报 | ✅ B站 BV/链接 → 六段式研报 + 内容时间轴 + 证据缺口 |
+
+## 单视频研报
+
+给一个 BV 号或 B 站链接，解析原片并生成一份可回查的研报：视频信息卡 → 一句话结论 → 内容脉络（时间轴）→ 核心观点与依据 → 关键数据 → 论证质量与局限 → 行动建议。可选附一个问题，会额外生成「针对你的问题」章节。
+
+```bash
+# 治理层（需 JWT）
+curl -X POST http://localhost:8080/api/tasks/single \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"input":"BV1GJ411x7h7","question":"这条视频的结论可信吗？","mode":"fast"}'
+
+# 执行层直连
+curl -X POST http://localhost:8000/internal/single/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"input":"https://www.bilibili.com/video/BV1GJ411x7h7"}'
+```
+
+单视频模式与多视频的差别：固定六段式大纲（少一次 planner LLM 调用）、按时间轴窗口铺满全片而非只检索开头、不做跨来源冲突检测，改为输出「证据缺口」与证据支撑率。
+
 
 ## 一键演示
 

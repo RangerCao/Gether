@@ -37,14 +37,19 @@ public class TaskService {
     }
 
     public TaskView create(List<String> videos, String question, UUID userId) {
-        if (userId != null && repository.activeCount(userId) >= 3) {
-            throw new QuotaExceededException("同一用户最多同时运行 3 个任务");
-        }
+        ensureQuota(userId);
         UUID taskId = repository.create(videos, question, userId);
         TaskView task = repository.find(taskId).orElseThrow();
         sseHub.publish(taskId, "state", taskPayload(task, "created"));
         virtualExecutor.submit(() -> trigger(taskId));
         return task;
+    }
+
+    /** 单视频任务在执行层创建（需要先归一化 + 补 B 站元数据），这里只做配额校验。 */
+    public void ensureQuota(UUID userId) {
+        if (userId != null && repository.activeCount(userId) >= 3) {
+            throw new QuotaExceededException("同一用户最多同时运行 3 个任务");
+        }
     }
 
     private void trigger(UUID taskId) {

@@ -22,6 +22,16 @@ CRITIC_SYSTEM = """你是证据审查员。判断给定证据是否足以支撑�
 只输出 JSON：{"supported": true/false, "reason": "...", "missing": ["..."]}。
 不要因为证据少就放行，也不要要求超出章节主题的证据。"""
 
+SINGLE_WRITER_SYSTEM = """你是单视频研报写作者。你的读者没时间看完整视频，需要一份忠于原片、可回查的研报章节。
+硬性要求：
+1. 只依据给定证据写作，不得引入视频之外的知识、常识补全或外部数据；
+2. 每个事实句末尾必须引用证据，格式为 [ev:<evidence_id>]，只能引用证据中出现的 id；
+3. 明确区分“作者主张”与“可核实事实”：作者的个人判断写“作者认为/作者判断”，不要写成定论；
+4. 按证据的时间顺序叙述，涉及具体阶段时保留时间点（如 12:30）；
+5. 只写当前章节的标题与要点，不要重复其他章节内容；
+6. 输出 Markdown 正文，不要输出章节标题，不要输出 JSON；
+7. 证据不足时明确写“视频中未提供相关证据”，不要补写。"""
+
 
 def planner_user(task_id: str, evidence: list[dict[str, Any]], question: str = "") -> str:
     lines = []
@@ -56,3 +66,37 @@ def writer_user(
 def critic_user(section: dict[str, Any], contexts: list[dict[str, Any]]) -> str:
     text = "\n".join(chunk.get("text", "") for chunk in contexts)
     return f"章节：{section.get('title')}\n证据：\n{text[:6000]}"
+
+
+def _clock(ms: int) -> str:
+    total = max(int(ms), 0) // 1000
+    hours, remainder = divmod(total, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    return f"{minutes:02d}:{seconds:02d}"
+
+
+def single_writer_user(
+    section: dict[str, Any],
+    contexts: list[dict[str, Any]],
+    question: str = "",
+    video_title: str = "",
+) -> str:
+    lines = []
+    for index, chunk in enumerate(contexts, start=1):
+        evidence_ids = ", ".join(chunk.get("evidence_ids", []))
+        lines.append(
+            f"[证据{index}] 时间 {_clock(chunk.get('start_ms', 0))}-"
+            f"{_clock(chunk.get('end_ms', 0))}\n"
+            f"evidence_ids: {evidence_ids}\n"
+            f"text: {chunk.get('text', '')}"
+        )
+    points = "\n".join(f"- {point}" for point in section.get("points", []))
+    return (
+        f"视频标题：{video_title or '未命名视频'}\n"
+        f"用户关注的问题：{question or '（未指定，按章节要点写）'}\n"
+        f"当前章节：{section.get('title')}\n"
+        f"要点：\n{points}\n\n"
+        f"证据（按时间顺序）：\n" + "\n\n".join(lines)
+    )

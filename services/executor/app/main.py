@@ -34,6 +34,7 @@ from app.llm.base import LLMClient
 from app.llm.factory import build_fallback_client, build_llm_client
 from app.repository import TaskRepository
 from app.services.parse_service import ParseService
+from app.single.service import SingleVideoService
 
 
 @asynccontextmanager
@@ -59,6 +60,7 @@ async def lifespan(app: FastAPI):
     if app.state.callback is not None:
         await app.state.callback.aclose()
     await app.state.report_service.aclose()
+    await app.state.single_service.aclose()
     fallback: LLMClient | None = app.state.fallback_llm
     if fallback is not None:
         await fallback.aclose()
@@ -116,6 +118,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         pipeline=app.state.ingest,
         sources=app.state.sources,
         callback=app.state.callback,
+    )
+    app.state.single_service = SingleVideoService(
+        sources=app.state.sources,
+        parse_service=app.state.parse_service,
+        settings=settings,
     )
     app.state.discovery_service = None
     if settings.discovery_enabled:

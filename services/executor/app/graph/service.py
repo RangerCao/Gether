@@ -12,6 +12,12 @@ from langgraph.types import Command
 from app.core.config import Settings
 from app.core.db import build_dsn
 from app.graph.repository import ReportRepository
+from app.graph.single import (
+    is_single_video,
+    single_gaps,
+    single_quality,
+    timeline_windows,
+)
 from app.graph.workflow import ReportWorkflow
 from app.repository import TaskRepository
 
@@ -75,11 +81,17 @@ class ReportService:
         input_json = task.get("input_json") or {}
         question = input_json.get("question", "")
         mode = str(input_json.get("mode") or "quality")
+        kind = str(input_json.get("kind") or "multi_video")
+        video_meta = input_json.get("video_meta") or {}
+        report_question = str(input_json.get("single_question") or "")
         state = await graph.ainvoke(
             {
                 "task_id": task_id,
                 "question": question,
+                "report_question": report_question,
                 "mode": mode,
+                "report_kind": kind,
+                "video_meta": video_meta,
                 "warnings": [],
                 "outline": [],
             },
@@ -89,12 +101,14 @@ class ReportService:
             return {
                 "task_id": task_id,
                 "status": "WAITING_APPROVAL",
+                "kind": kind,
                 "outline": state.get("outline", []),
                 "warnings": state.get("warnings", []),
             }
         return {
             "task_id": task_id,
             "status": "GENERATED",
+            "kind": kind,
             "outline": state.get("outline", []),
             "warnings": state.get("warnings", []),
         }
@@ -308,7 +322,57 @@ class ReportService:
             raise ReportError("任务不存在")
         report = await self.report_repository.get_report(task_id)
         report["status"] = task["status"]
+        input_json = task.get("input_json") or {}
+        kind = str(input_json.get("kind") or "multi_video")
+        report["kind"] = kind
+        if is_single_video(kind):
+            await self._attach_single_video(task_id, input_json, report)
         return report
+
+    async def _attach_single_video(
+        self, task_id: str, input_json: dict, report: dict
+    ) -> None:
+        """单视频研报的附加信息：视频元数据、内容时间轴、证据缺口。
+
+        不额外建表：元数据在 input_json，时间轴由证据确定性重建。
+        """
+        try:
+            evidence = await self.task_repository.list_evidence(task_id, limit=100000)
+        except Exception as exc:  # 报告本身仍然可读
+            logger.warning("single_report_evidence_failed task=%s: %s", task_id, exc)
+            evidence = []
+        windows = timeline_windows(evidence)
+        video = dict(input_json.get("video_meta") or {})
+        if not video:
+            try:
+                videos = await self.task_repository.list_videos(task_id)
+            except Exception:
+                videos = []
+            if videos:
+                row = videos[0]
+                video = {
+                    "source": row.get("source"),
+                    "source_video_id": row.get("source_video_id"),
+                    "page": row.get("page"),
+                    "url": row.get("url"),
+                    "title": row.get("title"),
+                    "duration_ms": row.get("duration_ms"),
+                }
+        report["video"] = video
+        report["timeline"] = [
+            {
+                "index": window["index"],
+                "start_ms": window["start_ms"],
+                "end_ms": window["end_ms"],
+                "text": window["text"],
+                "evidence_ids": window["evidence_ids"],
+            }
+            for window in windows
+        ]
+        claims = report.get("claims", [])
+        ledger = report.get("ledger", [])
+        report["gaps"] = single_gaps(claims, ledger)
+        report["quality"] = single_quality(evidence, claims, ledger, windows)
 
     async def _safe_fail(self, task_id: str, message: str) -> None:
         task = await self.task_repository.get_task(task_id)

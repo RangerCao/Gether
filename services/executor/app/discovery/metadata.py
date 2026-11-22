@@ -43,6 +43,28 @@ class BilibiliMetadataClient:
         results = await asyncio.gather(*(self.fetch(hit) for hit in hits), return_exceptions=True)
         return [item for item in results if isinstance(item, SearchHit)]
 
+    async def fetch_video(self, video_id: str) -> dict | None:
+        """按 BV / av 号取单个视频的完整元数据（单视频研报头部用）。"""
+        params: dict[str, str] = {}
+        lowered = video_id.strip().lower()
+        if lowered.startswith("bv"):
+            params["bvid"] = video_id.strip()
+        elif lowered.startswith("av"):
+            params["aid"] = video_id.strip()[2:]
+        elif video_id.strip().isdigit():
+            params["aid"] = video_id.strip()
+        else:
+            return None
+        async with self.semaphore:
+            try:
+                response = await self.client.get(VIEW_API, params=params)
+                payload = response.json()
+            except Exception:
+                return None
+        if payload.get("code") != 0:
+            return None
+        return video_meta(payload.get("data") or {})
+
     async def fetch(self, hit: SearchHit) -> SearchHit | None:
         aid = _aid_from(hit.source_video_id, hit.url)
         if not aid:
@@ -81,6 +103,34 @@ class BilibiliMetadataClient:
                 "owner_mid": owner.get("mid"),
             },
         )
+
+
+def video_meta(data: dict) -> dict:
+    """把 B 站 view 接口的 data 归一化为研报头部字段。"""
+    stat = data.get("stat") or {}
+    owner = data.get("owner") or {}
+    bvid = data.get("bvid") or ""
+    return {
+        "source": "bilibili",
+        "source_video_id": bvid,
+        "url": f"https://www.bilibili.com/video/{bvid}" if bvid else "",
+        "aid": data.get("aid"),
+        "title": data.get("title") or "",
+        "duration_ms": int(data.get("duration") or 0) * 1000 or None,
+        "uploader": owner.get("name"),
+        "owner_mid": owner.get("mid"),
+        "published_at": data.get("pubdate"),
+        "views": int(stat.get("view") or 0),
+        "likes": int(stat.get("like") or 0),
+        "coins": int(stat.get("coin") or 0),
+        "favorites": int(stat.get("favorite") or 0),
+        "danmaku": stat.get("danmaku"),
+        "reply": stat.get("reply"),
+        "share": stat.get("share"),
+        "description": data.get("desc") or "",
+        "cover": data.get("pic") or None,
+        "pages": len(data.get("pages") or []) or None,
+    }
 
 
 def _aid_from(video_id: str, url: str) -> str | None:
